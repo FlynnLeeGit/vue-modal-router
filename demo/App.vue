@@ -19,6 +19,15 @@
       <modal-link tag='a-button'
         :to="{name:'antd-async-user-edit'}">async-user-edit</modal-link>
     </div>
+    <div class="mg-t20">
+      <h4>
+        tag a
+      </h4>
+      <modal-link tag='a' href='javascript:;'
+        :to="{name:'antd-custom-edit'}">custom-edit</modal-link>
+      <modal-link tag='a' href='javascript:;'
+        :to="{name:'antd-async-user-edit'}">async-user-edit</modal-link>
+    </div>
     <modal-router-view></modal-router-view>
   </div>
 </template>
@@ -28,7 +37,7 @@ export default {
   name: 'app',
   methods: {
     test(color) {
-      console.log('test',color)
+      console.log('test', color)
     }
   }
 }

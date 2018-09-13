@@ -57,6 +57,10 @@ export const ModalLink = {
         nativeOn: {
           click: this.onClick,
           mousedown: this.onMousedown
+        },
+        on: {
+          click: this.onClick,
+          mousedown: this.onMousedown
         }
       },
       this.$slots.default
