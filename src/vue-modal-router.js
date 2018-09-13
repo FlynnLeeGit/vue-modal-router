@@ -34,7 +34,6 @@ class ModalRouter {
         `[VueModalRouter] can not find modal [${name}],register first`
       )
     }
-    console.log(on)
     if (isFn(route.component)) {
       route.component().then(component => {
         component.modalRouteConfig = {

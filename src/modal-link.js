@@ -27,7 +27,6 @@ export const ModalLink = {
         this.modalRouteInstance[this.modalRouteModel] = true
       } else {
         this.modalClickHander = function(modal, routeOptions) {
-          console.log(modal)
           modal[routeOptions.model] = true
         }
       }
