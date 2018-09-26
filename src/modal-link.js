@@ -48,6 +48,17 @@ export const ModalLink = {
       }
     }
   },
+  created() {
+    if (!this.$modalRouter.has(this.to.name)) {
+      if (process && process.env && process.env.NODE_ENV === 'development') {
+        console.warn(
+          `[VueModalRouter] can not find modal "${
+            this.to.name
+          }", please check routes option`
+        )
+      }
+    }
+  },
   render(h) {
     return h(
       this.tag,

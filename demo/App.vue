@@ -15,7 +15,7 @@
         ant-design-vue
       </h4>
       <modal-link tag='a-button'
-        :to="{name:'antd-custom-edit'}">custom-edit</modal-link>
+        :to="{name:'antd-custom-edi'}">custom-edit</modal-link>
       <modal-link tag='a-button'
         :to="{name:'antd-async-user-edit'}">async-user-edit</modal-link>
     </div>

@@ -24,6 +24,9 @@ class ModalRouter {
   _init(appInstance) {
     this.app = appInstance
   }
+  has(name) {
+    return name in this._routeMap
+  }
   push(
     { name = '', props = {}, on = {}, autoOpen = true } = {},
     onOpen = () => {}
@@ -31,7 +34,7 @@ class ModalRouter {
     const route = this._routeMap[name]
     if (!route) {
       throw new Error(
-        `[VueModalRouter] can not find modal [${name}],register first`
+        `[VueModalRouter] can not find modal "${name}",register first`
       )
     }
     if (isFn(route.component)) {
