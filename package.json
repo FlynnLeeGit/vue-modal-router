@@ -1,7 +1,7 @@
 {
   "name": "vue-modal-router",
   "description": "elegant to manage spa modals",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "private": false,
   "main": "dist/vue-modal-router.js",
   "files": [

@@ -106,7 +106,7 @@ ModalRouter.install = function(Vue) {
           this._modalRouter._modalComponents
         )
       }
-      if (this.$root._modalRouter) {
+      if (!this.$modalRouter) {
         Object.defineProperty(this, '$modalComponents', {
           get() {
             return this.$root._modalComponents
