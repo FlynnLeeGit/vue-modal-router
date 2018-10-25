@@ -98,6 +98,7 @@ ModalRouter.install = function(Vue) {
          */
         const modalRouter = this.$options.modalRouter
         this._modalRouter = modalRouter
+        Vue._modalRouterInstalled = true
         modalRouter._init(this)
         Vue.util.defineReactive(
           this,
@@ -105,17 +106,18 @@ ModalRouter.install = function(Vue) {
           this._modalRouter._modalComponents
         )
       }
-
-      Object.defineProperty(this, '$modalComponents', {
-        get() {
-          return this.$root._modalComponents
-        }
-      })
-      Object.defineProperty(this, '$modalRouter', {
-        get() {
-          return this.$root._modalRouter
-        }
-      })
+      if (this.$root._modalRouter) {
+        Object.defineProperty(this, '$modalComponents', {
+          get() {
+            return this.$root._modalComponents
+          }
+        })
+        Object.defineProperty(this, '$modalRouter', {
+          get() {
+            return this.$root._modalRouter
+          }
+        })
+      }
     },
     created() {
       if (this.$options.modalRouteConfig) {

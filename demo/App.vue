@@ -6,7 +6,11 @@
         element-ui
       </h4>
       <modal-link tag='el-button'
-        :to="{name:'el-custom-edit',props:{a:6},on:{test:test.bind(null,'3')}}">custom-edit</modal-link>
+        :to="{name:'el-custom-edit',props:{list:list},on:{test:test}}">custom-edit</modal-link>
+
+      <modal-link tag='el-button'
+        :to="{name:'el-custom-edit',props:{list:list},on:{test:test}}">custom-edit-copy</modal-link>
+
       <modal-link tag='el-button'
         :to="{name:'el-async-user-edit'}">async-user-edit</modal-link>
     </div>
@@ -15,7 +19,7 @@
         ant-design-vue
       </h4>
       <modal-link tag='a-button'
-        :to="{name:'antd-custom-edi'}">custom-edit</modal-link>
+        :to="{name:'antd-custom-edit'}">custom-edit</modal-link>
       <modal-link tag='a-button'
         :to="{name:'antd-async-user-edit'}">async-user-edit</modal-link>
     </div>
@@ -23,9 +27,11 @@
       <h4>
         tag a
       </h4>
-      <modal-link tag='a' href='javascript:;'
+      <modal-link tag='a'
+        href='javascript:;'
         :to="{name:'antd-custom-edit'}">custom-edit</modal-link>
-      <modal-link tag='a' href='javascript:;'
+      <modal-link tag='a'
+        href='javascript:;'
         :to="{name:'antd-async-user-edit'}">async-user-edit</modal-link>
     </div>
     <modal-router-view></modal-router-view>
@@ -35,6 +41,11 @@
 <script>
 export default {
   name: 'app',
+  data() {
+    return {
+      list: [1, 2, 3]
+    }
+  },
   methods: {
     test(color) {
       console.log('test', color)

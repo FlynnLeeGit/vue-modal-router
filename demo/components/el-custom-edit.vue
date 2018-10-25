@@ -2,21 +2,23 @@
   <el-dialog :visible.sync='show'
     title='custom-edit'>
     <p>
-      form here {{a}}
+      form here {{list}}
     </p>
-    <el-button @click='test'>emitEvent</el-button>
+    <el-button @click="onClickAdd">add item</el-button>
+    <el-button @click='emitTest'>emitEvent</el-button>
     <modal-link tag='el-button'
       :to="{name:'el-user-edit'}">
       inner Modal open edit
     </modal-link>
+    <el-button @click='close'>close</el-button>
   </el-dialog>
 </template>
 
 <script>
 export default {
   props: {
-    a: {
-      type: Number
+    list: {
+      type: Array
     }
   },
   data() {
@@ -25,7 +27,14 @@ export default {
     }
   },
   methods: {
-    test() {
+    onClickAdd() {
+      this.list.push(4)
+    },
+    close() {
+      this.emitTest()
+      this.show = false
+    },
+    emitTest() {
       this.$emit('test')
     }
   }

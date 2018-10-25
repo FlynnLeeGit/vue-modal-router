@@ -10,6 +10,7 @@ import VueAntd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.min.css'
 import modalRouter from './modal-router'
 
+import './second-import'
 Vue.config.productionTip = false
 
 // Using plugin
