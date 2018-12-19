@@ -36,7 +36,6 @@ export const ModalLink = {
       this.clickHander = null
       this.modalRouteInstance = null
       if (e.button === 0) {
-        console.log(this.$modalRouter)
         this.to.autoOpen = false
         this.$modalRouter.push(
           Object.assign(this.to),
