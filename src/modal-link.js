@@ -36,6 +36,7 @@ export const ModalLink = {
       this.clickHander = null
       this.modalRouteInstance = null
       if (e.button === 0) {
+        console.log(this.$modalRouter)
         this.to.autoOpen = false
         this.$modalRouter.push(
           Object.assign(this.to),
@@ -65,10 +66,6 @@ export const ModalLink = {
       {
         props: this.$attrs,
         nativeOn: {
-          click: this.onClick,
-          mousedown: this.onMousedown
-        },
-        on: {
           click: this.onClick,
           mousedown: this.onMousedown
         }
