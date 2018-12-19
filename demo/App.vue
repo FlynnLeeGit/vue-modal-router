@@ -25,12 +25,23 @@
     </div>
     <div class="mg-t20">
       <h4>
-        tag a
+        tag a link
       </h4>
       <modal-link tag='a'
         href='javascript:;'
         :to="{name:'antd-custom-edit'}">custom-edit</modal-link>
       <modal-link tag='a'
+        href='javascript:;'
+        :to="{name:'antd-async-user-edit'}">async-user-edit</modal-link>
+    </div>
+    <div class="mg-t20">
+      <h4>
+        tag button link
+      </h4>
+      <modal-link tag='button'
+        href='javascript:;'
+        :to="{name:'antd-custom-edit'}">custom-edit</modal-link>
+      <modal-link tag='button'
         href='javascript:;'
         :to="{name:'antd-async-user-edit'}">async-user-edit</modal-link>
     </div>

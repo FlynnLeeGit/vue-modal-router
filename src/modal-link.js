@@ -37,6 +37,7 @@ export const ModalLink = {
       this.modalRouteInstance = null
       if (e.button === 0) {
         this.to.autoOpen = false
+        console.log(this.$modalRouter)
         this.$modalRouter.push(
           Object.assign(this.to),
           (modal, routeOptions) => {
@@ -60,16 +61,21 @@ export const ModalLink = {
     }
   },
   render(h) {
-    return h(
-      this.tag,
-      {
-        props: this.$attrs,
-        nativeOn: {
-          click: this.onClick,
-          mousedown: this.onMousedown
-        }
-      },
-      this.$slots.default
-    )
+    const options = {
+      props: this.$attrs
+    }
+    if (['a', 'button', 'input', 'div', 'span'].indexOf(this.tag) > -1) {
+      options.on = {
+        click: this.onClick,
+        mousedown: this.onMousedown
+      }
+    } else {
+      options.nativeOn = {
+        click: this.onClick,
+        mousedown: this.onMousedown
+      }
+    }
+
+    return h(this.tag, options, this.$slots.default)
   }
 }
