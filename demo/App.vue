@@ -8,7 +8,6 @@
         v-modal-link="{name:'el-custom-edit',props:{list:list},on:{test:test}}"
       >custom-edit-copy</el-button>
       <el-button v-modal-link="{name:'el-async-user-edit'}">async-user-edit</el-button>
-
     </div>
     <div class="mg-t20">
       <h4>ant-design-vue</h4>
@@ -23,10 +22,7 @@
     <div class="mg-t20">
       <h4>tag button link</h4>
       <button href="javascript:;" v-modal-link="{name:'antd-custom-edit'}">custom-edit</button>
-      <button
-        href="javascript:;"
-        v-modal-link="{name:'antd-async-user-edit'}"
-      >async-user-edit</button>
+      <button href="javascript:;" v-modal-link="{name:'antd-async-user-edit'}">async-user-edit</button>
     </div>
     <modal-link :to="{name:'el-custom-edit'}">deperated</modal-link>
     <modal-router-view></modal-router-view>
@@ -40,6 +36,11 @@ export default {
     return {
       list: [1, 2, 3]
     };
+  },
+  mounted() {
+    this.$nextTick().then(() => {
+      this.list = [4, 5, 6];
+    });
   },
   methods: {
     test(color) {

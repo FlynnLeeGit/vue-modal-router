@@ -1,11 +1,11 @@
-export default (Vue,container) => {
+export default (Vue, container) => {
   Vue.directive('modal-link', {
     inserted(el, binding) {
       const $modalRouter = container.modalRouter
-      const to = binding.value
+      el.__modalTo__ = binding.value
       const modifiers = binding.modifiers
       const eventName = binding.arg || 'click'
-      if (!$modalRouter.has(to.name)) {
+      if (!$modalRouter.has(binding.value.name)) {
         if (process && process.env && process.env.NODE_ENV === 'development') {
           console.warn(
             `[VueModalRouter] can not find modal "${
@@ -21,8 +21,11 @@ export default (Vue,container) => {
         if (modifiers.prevent) {
           e.preventDefault()
         }
-        $modalRouter.push(Object.assign(to))
+        $modalRouter.push(el.__modalTo__)
       })
+    },
+    update(el, binding) {
+      el.__modalTo__ = binding.value
     }
   })
 }
