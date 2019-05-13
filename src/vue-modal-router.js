@@ -1,5 +1,6 @@
 import { ModalLink } from './modal-link'
 import { ModalRouterView } from './modal-router-view'
+import directiveLink from './directive-link'
 import { isFn, isDef } from './util'
 /**
  * vue-modal-router
@@ -90,6 +91,9 @@ class ModalRouter {
 }
 
 ModalRouter.install = function(Vue) {
+  let container = {
+    modalRouter: null
+  }
   Vue.mixin({
     beforeCreate() {
       if (this.$options.modalRouter) {
@@ -97,6 +101,7 @@ ModalRouter.install = function(Vue) {
          * @type {ModalRouter}
          */
         const modalRouter = this.$options.modalRouter
+        container.modalRouter = modalRouter
         this._modalRouter = modalRouter
         Vue._modalRouterInstalled = true
         modalRouter._init(this)
@@ -148,6 +153,7 @@ ModalRouter.install = function(Vue) {
 
   Vue.component(ModalLink.name, ModalLink)
   Vue.component(ModalRouterView.name, ModalRouterView)
+  directiveLink(Vue, container)
 }
 
 export default ModalRouter

@@ -83,9 +83,7 @@ then in page component
 ```html
 <template>
   <!-- button to open modal -->
-  <modal-link tag="button" :to="{name: 'custom-edit' }"
-    >open custom edit modal</modal-link
-  >
+  <button v-modal-link="{name: 'custom-edit' }">open custom edit modal</button>
 </template>
 ```
 
@@ -94,9 +92,9 @@ pass props to modal
 ```html
 <template>
   <!-- button to open modal -->
-  <modal-link tag="button" :to="{name: 'custom-edit',props: {a: 1, b: 2} }">
+  <button tag="button" v-modal-link="{name: 'custom-edit',props: {a: 1, b: 2} }">
     open custom edit modal
-  </modal-link>
+  </button>
 </template>
 ```
 
@@ -105,12 +103,11 @@ with event
 ```html
 <template>
   <!-- button to open modal -->
-  <modal-link
-    tag="button"
-    :to="{ name: 'custom-edit', on: {test: onModalTest } }"
+  <button
+    v-modal-link="{ name: 'custom-edit', on: {test: onModalTest } }"
   >
     open custom edit modal
-  </modal-link>
+  </button>
 </template>
 
 <script>

@@ -49,8 +49,16 @@ export const ModalLink = {
     }
   },
   created() {
+    const isDev =
+      process && process.env && process.env.NODE_ENV === 'development'
+    if (isDev) {
+      console.warn(
+        '[VueModelRouter] modal-link component is deperated,use directive v-modal-link instead',
+        this.to
+      )
+    }
     if (!this.$modalRouter.has(this.to.name)) {
-      if (process && process.env && process.env.NODE_ENV === 'development') {
+      if (isDev) {
         console.warn(
           `[VueModalRouter] can not find modal "${
             this.to.name
