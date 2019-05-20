@@ -9,7 +9,7 @@ export default (Vue, container) => {
         if (process && process.env && process.env.NODE_ENV === 'development') {
           console.warn(
             `[VueModalRouter] can not find modal "${
-              to.name
+              binding.value.name
             }", please check routes option`
           )
         }
