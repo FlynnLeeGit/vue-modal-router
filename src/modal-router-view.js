@@ -3,19 +3,20 @@ export const ModalRouterView = {
   functional: true,
   render(_, { parent }) {
     const h = parent.$createElement
-    const modalComponents = parent.$modalComponents
-    if (modalComponents.length) {
-      const viewChildren = modalComponents.map(ModalComponent => {
-        return h(ModalComponent.component, {
+    const modalComponents = parent.$root._modalComponents
+    console.log('modalComponents', modalComponents)
+    return h(
+      'div',
+      {},
+      modalComponents.map(ModalComponent =>
+        h(ModalComponent.component, {
           props: ModalComponent.props,
           on: ModalComponent.on,
-          // inject ModalComponet then vm._parentVnode.data will use this
+
+          // 传入构造对象
           ModalComponent
         })
-      })
-      return h('div', { class: 'vue_modal_router_view_modals' }, viewChildren)
-    } else {
-      return h('div', { class: 'vue_modal_router_view_empty' })
-    }
+      )
+    )
   }
 }

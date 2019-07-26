@@ -7,31 +7,15 @@ const ModalRouter =
     ? require('../../src/vue-modal-router.js').default
     : require('../../dist/vue-modal-router.js')
 
-Vue.use(ModalRouter)
+Vue.use(ModalRouter, {
+  delay: 200,
+  model: 'show'
+})
 
 const modalRouter = new ModalRouter({
-  routes: [
-    {
-      name: 'el-custom-edit',
-      component: CustomEdit
-    },
-    {
-      name: 'el-user-edit',
-      component: UserEdit
-    },
-    {
-      name: 'el-async-user-edit',
-      component: () => import('../components/el-async-user-edit.vue')
-    },
-    {
-      name: 'antd-custom-edit',
-      component: AntdCustomEdit
-    },
-    {
-      name: 'antd-async-user-edit',
-      component: () => import('../components/antd-async-user-edit.vue')
-    }
-  ]
+  'el-custom-edit': CustomEdit,
+  'el-user-edit': UserEdit,
+  AntdCustomEdit
 })
 
 export default modalRouter

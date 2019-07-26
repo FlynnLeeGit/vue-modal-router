@@ -2,6 +2,12 @@
 
 > elegant to manage spa modals
 
+# Breaking Change
+
+- 0.4.0 is differenet to 0.3.x
+- [delay] and [model] is config in Vue.use()
+- suport component level modals,friendly for dyamicImport,to impress performance
+
 ### install
 
 ```
@@ -59,17 +65,13 @@ import Vue from 'vue'
 import VueModalRouter from 'vue-modal-router'
 
 import CustomEdit from './custom-edit.vue'
-Vue.use(VueModalRouter)
+Vue.use(VueModalRouter, {
+  model: 'show', // this should be equal to modal component model name
+  delay: 300 // delay time to destroy modal instance
+})
 
 const modalRouter = new VueModalRouter({
-  model: 'show', // this should be equal to modal component model name
-  delay: 300, // delay time to destroy modal instance
-  routes: [
-    {
-      name: 'custom-edit',
-      component: CustomEdit
-    }
-  ]
+  CustomEdit // now modal name can be 'CustomEdit' or 'custom-edit',it will try pascal name
 })
 
 new Vue({
@@ -92,7 +94,10 @@ pass props to modal
 ```html
 <template>
   <!-- button to open modal -->
-  <button tag="button" v-modal-link="{name: 'custom-edit',props: {a: 1, b: 2} }">
+  <button
+    tag="button"
+    v-modal-link="{name: 'custom-edit',props: {a: 1, b: 2} }"
+  >
     open custom edit modal
   </button>
 </template>
@@ -103,9 +108,7 @@ with event
 ```html
 <template>
   <!-- button to open modal -->
-  <button
-    v-modal-link="{ name: 'custom-edit', on: {test: onModalTest } }"
-  >
+  <button v-modal-link="{ name: 'custom-edit', on: {test: onModalTest } }">
     open custom edit modal
   </button>
 </template>
@@ -147,6 +150,31 @@ use manual api to open a modal
           }
         })
       }
+    }
+  }
+</script>
+```
+
+dyamic modals,now you can import modals only in component what you need
+no need to import all modals at ones
+
+```html
+<template>
+  <!-- button to open modal here will  use `modals` config -->
+  <button
+    tag="button"
+    v-modal-link="{name: 'custom-edit-local',props: {a: 1, b: 2} }"
+  >
+    open custom edit modal
+  </button>
+</template>
+
+<script>
+  import CustomEditLocal from './modals/custom-edit.vue'
+
+  export default {
+    modals: {
+      CustomEditLocal
     }
   }
 </script>
