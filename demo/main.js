@@ -13,6 +13,14 @@ import modalRouter from './modal-router'
 import './second-import'
 Vue.config.productionTip = false
 
+modalRouter
+  .beforeEachOpen(() => {
+    modalRouter.isModalOpening = true
+  })
+  .afterEachClosed(() => {
+    modalRouter.isModalOpening = false
+  })
+
 // Using plugin
 Vue.use(ElementUI)
 Vue.use(VueAntd)

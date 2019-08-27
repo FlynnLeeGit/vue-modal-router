@@ -1,6 +1,7 @@
 import { ModalRouterView } from './modal-router-view'
 import DirectiveModalLink from './directive-modal-link'
 import { isFn, isDef } from './util'
+import { isFunction } from 'util'
 /**
  * vue-modal-router
  * (c) 2018 FlynnLee
@@ -24,6 +25,8 @@ class ModalRouter {
      * 全局数组引用 来自vm.$root._modalComponents
      */
     this._modalComponents = []
+    this._beforeEachOpen = []
+    this._afterEachClosed = []
     this._init()
   }
   _init() {
@@ -48,16 +51,54 @@ class ModalRouter {
         `[vue-modal-router].push can not find modal "${name}",register first`
       )
     }
-    this._modalComponents.push({
+    const modalOptions = {
+      name,
       component,
       props,
       on
+    }
+    if (this._root) {
+      this._root._beforeEachOpen.forEach(fn => {
+        fn(modalOptions)
+      })
+    }
+    this._beforeEachOpen.forEach(fn => {
+      fn(modalOptions)
     })
+    this._modalComponents.push(modalOptions)
+  }
+  beforeEachOpen(fn) {
+    if (!isFunction(fn)) {
+      throw new Error(
+        `[vue-modal-router] beforeEachOpen should pass function but got ${fn}`
+      )
+    }
+    this._beforeEachOpen.push(fn)
+    return this
+  }
+  afterEachClosed(fn) {
+    if (!isFunction(fn)) {
+      throw new Error(
+        `[vue-modal-router] afterEachClosed should pass function but got ${fn}`
+      )
+    }
+    this._afterEachClosed.push(fn)
+    return this
   }
   close(vm) {
     const ModalComponent = vm.$vnode.data.ModalComponent
     const idx = this._modalComponents.findIndex(item => item === ModalComponent)
     this._modalComponents.splice(idx, 1)
+
+    // hooks
+    this._afterEachClosed.forEach(fn => {
+      fn()
+    })
+    if (this._root) {
+      this._root._afterEachClosed.forEach(fn => {
+        fn()
+      })
+    }
   }
 }
 

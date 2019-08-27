@@ -4,7 +4,6 @@ export const ModalRouterView = {
   render(_, { parent }) {
     const h = parent.$createElement
     const modalComponents = parent.$root._modalComponents
-    console.log('modalComponents', modalComponents)
     return h(
       'div',
       {},
