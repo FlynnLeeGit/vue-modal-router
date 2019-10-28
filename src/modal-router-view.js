@@ -11,9 +11,8 @@ export const ModalRouterView = {
         h(ModalComponent.component, {
           props: ModalComponent.props,
           on: ModalComponent.on,
-
-          // 传入构造对象
-          ModalComponent
+          // 传入mid 唯一标识
+          ModalComponent: ModalComponent
         })
       )
     )

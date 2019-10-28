@@ -142,13 +142,17 @@ use manual api to open a modal
         console.log('test here')
       },
       onOpen() {
-        this.$modalRouter.push({
+        const mid = this.$modalRouter.push({
           name: 'custom-edit',
           props: { a: 1, b: 2 },
           on: {
             test: this.onModalTest
           }
         })
+
+        setTimeout(() => {
+          this.$modalRouter.close(mid)
+        }, 2000)
       }
     }
   }

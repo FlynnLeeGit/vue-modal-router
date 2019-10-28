@@ -14,6 +14,8 @@ const toPascalName = name => {
     .replace(/^[a-z]/, r => r.toUpperCase())
 }
 
+let mid = 0
+
 class ModalRouter {
   constructor(modals = {}, root = null) {
     this._modals = modals
@@ -51,7 +53,9 @@ class ModalRouter {
         `[vue-modal-router].push can not find modal "${name}",register first`
       )
     }
+    const modalMid = mid++
     const modalOptions = {
+      mid: modalMid,
       name,
       component,
       props,
@@ -66,6 +70,7 @@ class ModalRouter {
       fn(modalOptions)
     })
     this._modalComponents.push(modalOptions)
+    return modalMid
   }
   beforeEachOpen(fn) {
     if (!isFunction(fn)) {
@@ -85,20 +90,28 @@ class ModalRouter {
     this._afterEachClosed.push(fn)
     return this
   }
-  close(vm) {
-    const ModalComponent = vm.$vnode.data.ModalComponent
-    const idx = this._modalComponents.findIndex(item => item === ModalComponent)
-    this._modalComponents.splice(idx, 1)
+  close(mid) {
+    const { componentInstance, model, delay } = this._modalComponents.find(
+      item => item.mid === mid
+    )
+    const idx = this._modalComponents.findIndex(item => item.mid === mid)
 
-    // hooks
-    this._afterEachClosed.forEach(fn => {
-      fn()
-    })
-    if (this._root) {
-      this._root._afterEachClosed.forEach(fn => {
-        fn()
-      })
-    }
+    componentInstance[model] = false
+
+    setTimeout(() => {
+      if (idx > -1) {
+        this._modalComponents.splice(idx, 1)
+        // hooks
+        this._afterEachClosed.forEach(fn => {
+          fn()
+        })
+        if (this._root) {
+          this._root._afterEachClosed.forEach(fn => {
+            fn()
+          })
+        }
+      }
+    }, delay)
   }
 }
 
@@ -126,12 +139,17 @@ ModalRouter.install = function(Vue, { delay = 200, model = 'show' } = {}) {
     },
     created() {
       if (this.$options._isModal) {
+        const ModalComponent = this.$vnode.data.ModalComponent
         this[model] = true
+
+        ModalComponent.componentInstance = this
+        ModalComponent.model = model
+        ModalComponent.delay = delay
+
         this.$watch(model, newVal => {
           if (!newVal) {
-            setTimeout(() => {
-              this.$modalRouter.close(this)
-            }, delay)
+            const mid = ModalComponent.mid
+            this.$modalRouter.close(mid)
           }
         })
       }

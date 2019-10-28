@@ -3,28 +3,63 @@
     <h1>VueModalRouter</h1>
     <div>
       <h4>element-ui</h4>
-      <el-button v-modal-link="{name:'el-custom-edit',props:{list:list},on:{test:test}}">custom-edit</el-button>
       <el-button
-        v-modal-link="{name:'el-custom-edit',props:{list:list},on:{test:test}}"
-      >custom-edit-234</el-button>
+        v-modal-link="{
+          name: 'el-custom-edit',
+          props: { list: list },
+          on: { test: test }
+        }"
+        >custom-edit</el-button
+      >
       <el-button
-        v-modal-link="{name:dynamicName,props:{list:list},on:{test:test}}"
-      >dynamic dynamicName</el-button>
+        v-modal-link="{
+          name: 'el-custom-edit',
+          props: { list: list },
+          on: { test: test }
+        }"
+        >custom-edit-234</el-button
+      >
       <el-button
-        v-modal-link="{name:'el-custom-edit-test',props:{list:list},on:{test:test}}"
-      >local modals</el-button>
+        v-modal-link="{
+          name: dynamicName,
+          props: { list: list },
+          on: { test: test }
+        }"
+        >dynamic dynamicName</el-button
+      >
+      <el-button
+        v-modal-link="{
+          name: 'el-custom-edit-test',
+          props: { list: list },
+          on: { test: test }
+        }"
+        >local modals</el-button
+      >
     </div>
     <div class="mg-t20">
       <h4>ant-design-vue</h4>
-      <a-button v-modal-link="{name:'antd-custom-edit'}">custom-edit</a-button>
+      <a-button v-modal-link="{ name: 'antd-custom-edit' }"
+        >custom-edit</a-button
+      >
     </div>
     <div class="mg-t20">
       <h4>tag a link</h4>
-      <a href="javascript:;" v-modal-link="{name:'antd-custom-edit'}">custom-edit</a>
+      <a href="javascript:;" v-modal-link="{ name: 'antd-custom-edit' }"
+        >custom-edit</a
+      >
     </div>
     <div class="mg-t20">
       <h4>tag button link</h4>
-      <button href="javascript:;" v-modal-link="{name:'antd-custom-edit'}">custom-edit</button>
+      <button href="javascript:;" v-modal-link="{ name: 'antd-custom-edit' }">
+        custom-edit
+      </button>
+    </div>
+    <div class="mg-t20">
+      <h4>close by api</h4>
+      <button @click="onOpenModal">open</button>
+    </div>
+    <div class="close-btn">
+      <button @click="onCloseModal">close</button>
     </div>
     <modal-router-view></modal-router-view>
   </div>
@@ -51,6 +86,14 @@ export default {
   methods: {
     test(color) {
       console.log("test", color);
+    },
+    onOpenModal() {
+      this.shouldCloseMid = this.$modalRouter.push({
+        name: "el-custom-edit-test"
+      });
+    },
+    onCloseModal() {
+      this.$modalRouter.close(this.shouldCloseMid);
     }
   }
 };
@@ -74,5 +117,11 @@ h2 {
 
 a {
   color: #333;
+}
+.close-btn {
+  position: fixed;
+  left: 8px;
+  bottom: 8px;
+  z-index: 3000;
 }
 </style>
