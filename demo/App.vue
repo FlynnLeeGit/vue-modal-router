@@ -56,10 +56,17 @@
     </div>
     <div class="mg-t20">
       <h4>close by api</h4>
-      <button @click="onOpenModal">open</button>
+      <button @click="onOpenModal">open1</button>
     </div>
+    <div class="mg-t20">
+      <h4>close by api</h4>
+      <button @click="onOpenModal2">open2</button>
+    </div>
+
     <div class="close-btn">
-      <button @click="onCloseModal">close</button>
+      <button @click="onCloseModal">close1</button>
+      <button @click="onCloseModal2">close2</button>
+      <button @click="onCloseModal3">closeAll</button>
     </div>
     <modal-router-view></modal-router-view>
   </div>
@@ -88,12 +95,23 @@ export default {
       console.log("test", color);
     },
     onOpenModal() {
-      this.shouldCloseMid = this.$modalRouter.push({
+      this.mid1 = this.$modalRouter.push({
         name: "el-custom-edit-test"
       });
     },
     onCloseModal() {
-      this.$modalRouter.close(this.shouldCloseMid);
+      this.$modalRouter.close(this.mid1);
+    },
+    onOpenModal2() {
+      this.mid2 = this.$modalRouter.push({
+        name: "custom-div"
+      });
+    },
+    onCloseModal2() {
+      this.$modalRouter.close(this.mid2);
+    },
+    onCloseModal3() {
+      this.$modalRouter.closeAll();
     }
   }
 };

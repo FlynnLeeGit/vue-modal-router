@@ -1,7 +1,23 @@
 # vue-modal-router
 
 > elegant to manage spa modals
+# 0.5.1
 
+* add modalRouter.closeAll()
+* fix close custom modal bug
+
+
+# 0.5.0
+
+* add modalRouter.close() method
+```js
+const mid = this.$modalRouter.push({
+  name:'test'
+})
+
+this.$modalRouter.close(mid)
+
+```
 # Breaking Change
 
 - 0.4.0 is differenet to 0.3.x

@@ -90,28 +90,34 @@ class ModalRouter {
     this._afterEachClosed.push(fn)
     return this
   }
+  closeAll() {
+    while (this._modalComponents.length) {
+      this._modalComponents.pop()
+    }
+  }
   close(mid) {
-    const { componentInstance, model, delay } = this._modalComponents.find(
-      item => item.mid === mid
-    )
-    const idx = this._modalComponents.findIndex(item => item.mid === mid)
-
-    componentInstance[model] = false
-
-    setTimeout(() => {
-      if (idx > -1) {
-        this._modalComponents.splice(idx, 1)
-        // hooks
-        this._afterEachClosed.forEach(fn => {
-          fn()
-        })
-        if (this._root) {
-          this._root._afterEachClosed.forEach(fn => {
-            fn()
-          })
-        }
+    const ModalComponent = this._modalComponents.find(item => item.mid === mid)
+    if (ModalComponent) {
+      const { componentInstance, model, delay } = ModalComponent
+      if (componentInstance) {
+        const idx = this._modalComponents.findIndex(item => item.mid === mid)
+        componentInstance.$set(componentInstance, model, false)
+        setTimeout(() => {
+          if (idx > -1) {
+            this._modalComponents.splice(idx, 1)
+            // hooks
+            this._afterEachClosed.forEach(fn => {
+              fn()
+            })
+            if (this._root) {
+              this._root._afterEachClosed.forEach(fn => {
+                fn()
+              })
+            }
+          }
+        }, delay)
       }
-    }, delay)
+    }
   }
 }
 
