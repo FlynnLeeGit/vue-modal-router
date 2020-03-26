@@ -35,6 +35,7 @@
         }"
         >local modals</el-button
       >
+      <el-button @click="onClickAsyncModal">anync modal</el-button>
     </div>
     <div class="mg-t20">
       <h4>ant-design-vue</h4>
@@ -83,7 +84,9 @@ export default {
     };
   },
   modals: {
-    ElCustomEditTest
+    ElCustomEditTest,
+    AsyncUserEdit: () =>
+      import(/* webpackChunkName: "async-user-edit" */"./components/el-async-user-edit")
   },
   mounted() {
     setTimeout(() => {
@@ -112,6 +115,11 @@ export default {
     },
     onCloseModal3() {
       this.$modalRouter.closeAll();
+    },
+    onClickAsyncModal() {
+      this.$modalRouter.push({
+        name: "async-user-edit"
+      });
     }
   }
 };

@@ -1,23 +1,57 @@
 # vue-modal-router
 
 > elegant to manage spa modals
+
+# 0.6.0
+
+- async modal support
+
+```js
+{
+  modals:{
+    AsyncModal:()=>import('./test/async-modal.vue')
+  },
+  methods:{
+    onClick(){
+      this.$modalRouter.push({
+        name:'async-modal' // this will load script then open the modal
+      })
+    }
+  }
+}
+
+
+```
+
 # 0.5.1
 
-* add modalRouter.closeAll()
-* fix close custom modal bug
+- add modalRouter.closeAll()
+- fix close custom modal bug
 
+```js
+
+{
+  methods:{
+    onClick(){
+      this.$modalRouter.closeAll()
+    }
+  }
+}
+
+```
 
 # 0.5.0
 
-* add modalRouter.close() method
+- add modalRouter.close() method
+
 ```js
 const mid = this.$modalRouter.push({
-  name:'test'
-})
+  name: "test"
+});
 
-this.$modalRouter.close(mid)
-
+this.$modalRouter.close(mid);
 ```
+
 # Breaking Change
 
 - 0.4.0 is differenet to 0.3.x
@@ -49,18 +83,18 @@ modal component
 
 <script>
   export default {
-    props: ['a', 'b'],
+    props: ["a", "b"],
     data() {
       return {
         show: false
-      }
+      };
     },
     methods: {
       onTest() {
-        this.$emit('test')
+        this.$emit("test");
       }
     }
-  }
+  };
 </script>
 ```
 
@@ -77,23 +111,23 @@ App.vue
 ```
 
 ```js
-import Vue from 'vue'
-import VueModalRouter from 'vue-modal-router'
+import Vue from "vue";
+import VueModalRouter from "vue-modal-router";
 
-import CustomEdit from './custom-edit.vue'
+import CustomEdit from "./custom-edit.vue";
 Vue.use(VueModalRouter, {
-  model: 'show', // this should be equal to modal component model name
+  model: "show", // this should be equal to modal component model name
   delay: 300 // delay time to destroy modal instance
-})
+});
 
 const modalRouter = new VueModalRouter({
   CustomEdit // now modal name can be 'CustomEdit' or 'custom-edit',it will try pascal name
-})
+});
 
 new Vue({
-  el: '#app',
+  el: "#app",
   modalRouter
-})
+});
 ```
 
 then in page component
@@ -133,10 +167,10 @@ with event
   export default {
     methods: {
       onModalTest() {
-        console.log('get modal event here')
+        console.log("get modal event here");
       }
     }
-  }
+  };
 </script>
 ```
 
@@ -155,23 +189,23 @@ use manual api to open a modal
   export default {
     methods: {
       onModalTest() {
-        console.log('test here')
+        console.log("test here");
       },
       onOpen() {
         const mid = this.$modalRouter.push({
-          name: 'custom-edit',
+          name: "custom-edit",
           props: { a: 1, b: 2 },
           on: {
             test: this.onModalTest
           }
-        })
+        });
 
         setTimeout(() => {
-          this.$modalRouter.close(mid)
-        }, 2000)
+          this.$modalRouter.close(mid);
+        }, 2000);
       }
     }
-  }
+  };
 </script>
 ```
 
@@ -190,13 +224,13 @@ no need to import all modals at ones
 </template>
 
 <script>
-  import CustomEditLocal from './modals/custom-edit.vue'
+  import CustomEditLocal from "./modals/custom-edit.vue";
 
   export default {
     modals: {
       CustomEditLocal
     }
-  }
+  };
 </script>
 ```
 

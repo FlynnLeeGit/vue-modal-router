@@ -1,20 +1,20 @@
 export const ModalRouterView = {
-  name: 'ModalRouterView',
+  name: "ModalRouterView",
   functional: true,
   render(_, { parent }) {
-    const h = parent.$createElement
-    const modalComponents = parent.$root._modalComponents
+    const h = parent.$createElement;
+    const modalComponents = parent.$root._modalComponents;
     return h(
-      'div',
+      "div",
       {},
-      modalComponents.map(ModalComponent =>
-        h(ModalComponent.component, {
+      modalComponents.map(ModalComponent => {
+        return h(ModalComponent.component, {
           props: ModalComponent.props,
           on: ModalComponent.on,
           // 传入mid 唯一标识
           ModalComponent: ModalComponent
-        })
-      )
-    )
+        });
+      })
+    );
   }
-}
+};
