@@ -66,7 +66,8 @@ class ModalRouter {
           this._innerPush({
             name,
             mid,
-            component: Comp,
+            /* fix es default export module problem */
+            component: Comp.default || Comp,
             on,
             props
           });
